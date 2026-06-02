@@ -1,0 +1,11 @@
+{ 
+    "problem": "string",
+    "solution_1": "md formate string",
+    "solution_2": "md formate string",
+    "judge": {
+        "solution_1_score": 10,
+        "solution_2_score": 8,
+        "solution_1_reasoning": "string",
+        "solution_2_reasoning": "string"
+    }
+}
