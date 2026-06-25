@@ -20,11 +20,16 @@ export default function ChatInterface() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [dark, setDark] = useState(() => {
-    return localStorage.getItem("arena-theme") !== "light";
+    const savedTheme = localStorage.getItem("arena-theme");
+
+    if (savedTheme) {
+      return savedTheme === "dark";
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   const mainScrollRef = useRef(null);
-
   const displayedMessages = selectedChat ? [selectedChat] : currentMessages;
 
   const scrollToBottom = () => {
@@ -35,9 +40,21 @@ export default function ChatInterface() {
   };
 
   useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    localStorage.setItem("arena-theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  useEffect(() => {
     const fetchChats = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chats`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/chats`
+        );
         setMessages(res.data);
       } catch (error) {
         console.log("Fetch history error:", error);
@@ -46,11 +63,6 @@ export default function ChatInterface() {
 
     fetchChats();
   }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("arena-theme", dark ? "dark" : "light");
-  }, [dark]);
 
   useEffect(() => {
     scrollToBottom();
@@ -253,7 +265,8 @@ ${msg.judge?.solution_2_reasoning ?? ""}
 
             <button
               onClick={() => setDark((prev) => !prev)}
-              className="text-xs sm:text-sm px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              className="p-2 sm:px-3 sm:py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              aria-label="Toggle Theme"
             >
               {dark ? "☀️" : "🌙"}
             </button>
@@ -324,7 +337,7 @@ ${msg.judge?.solution_2_reasoning ?? ""}
           <button
             type="button"
             onClick={scrollToBottom}
-            className="fixed bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 z-20 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 w-10 h-10 rounded-full shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="fixed bottom-35 sm:bottom-28 left-1/2 -translate-x-1/2 z-20 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 w-10 h-10 rounded-full shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
             ↓
           </button>
