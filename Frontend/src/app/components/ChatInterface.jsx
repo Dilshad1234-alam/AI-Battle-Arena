@@ -73,7 +73,7 @@ export default function ChatInterface() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/chats/invoke`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/chats/invoke`,
         { input: userInput }
       );
 
