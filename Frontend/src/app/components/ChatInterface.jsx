@@ -37,7 +37,7 @@ export default function ChatInterface() {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/chats");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chats`);
         setMessages(res.data);
       } catch (error) {
         console.log("Fetch history error:", error);
@@ -73,7 +73,7 @@ export default function ChatInterface() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/chats/invoke",
+        `${import.meta.env.VITE_BACKEND_URL}/chats/invoke`,
         { input: userInput }
       );
 
@@ -119,7 +119,7 @@ export default function ChatInterface() {
     if (!ok) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/chats/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/chats/${id}`);
 
       setMessages((prev) => prev.filter((chat) => chat._id !== id));
       setCurrentMessages((prev) => prev.filter((chat) => chat._id !== id));
@@ -245,9 +245,9 @@ ${msg.judge?.solution_2_reasoning ?? ""}
           {loading && (
             <div className="max-w-md mx-auto w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
               <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
-                <p className="animate-pulse">🟢 Mistral thinking...</p>
-                <p className="animate-pulse">🟣 Cohere thinking...</p>
-                <p className="animate-pulse">⚖️ Judge evaluating...</p>
+                <p className="animate-pulse"> Mistral thinking...</p>
+                <p className="animate-pulse"> Cohere thinking...</p>
+                <p className="animate-pulse"> Judge evaluating...</p>
               </div>
             </div>
           )}

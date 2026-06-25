@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const chatApiInstance = axios.create({
-    baseURL: "http://localhost:3000/api/chats",
+    baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/chats`,
     withCredentials: true
 })
 
