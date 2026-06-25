@@ -337,7 +337,7 @@ ${msg.judge?.solution_2_reasoning ?? ""}
           <button
             type="button"
             onClick={scrollToBottom}
-            className="fixed bottom-35 sm:bottom-28 left-1/2 -translate-x-1/2 z-20 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 w-10 h-10 rounded-full shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="fixed bottom-30 sm:bottom-28 left-1/2 -translate-x-1/2 z-20 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 w-10 h-10 rounded-full shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
             ↓
           </button>
